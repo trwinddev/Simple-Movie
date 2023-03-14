@@ -2,6 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: "DM Sans", sans-serif;
+@layer base {
+  body {
+    @apply bg-slate-900 font-body px-5;
+  }
 }
