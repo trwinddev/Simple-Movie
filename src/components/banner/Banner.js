@@ -9,7 +9,6 @@ const Banner = () => {
     fetcher
   );
   const movies = data?.results || [];
-  console.log("🚀 ~ file: Banner.js:12 ~ Banner ~ movies:", movies);
 
   return (
     <section className="banner h-[500px] page-container mb-20 overflow-hidden">
