@@ -1,12 +1,11 @@
 import React from "react";
 import useSWR from "swr";
-import { fetcher } from "../../config/config";
+import { apiKey, fetcher } from "../../config/config";
 import MovieCard from "../movie/MovieCard";
-import MovieList from "../movie/MovieList";
 
 const MoviePage = () => {
   const { data } = useSWR(
-    `https://api.themoviedb.org/3/movie/popular?api_key=1e736f7376d8b7f90a66c1431257159b`,
+    `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}`,
     fetcher
   );
   const movies = data?.results || [];
@@ -25,7 +24,7 @@ const MoviePage = () => {
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            stroke-width="1.5"
+            strokeWidth="1.5"
             stroke="currentColor"
             className="w-6 h-6"
           >

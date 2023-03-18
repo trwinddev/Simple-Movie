@@ -1,12 +1,11 @@
 import { Fragment } from "react";
 import { NavLink, Route, Routes } from "react-router-dom";
 import Banner from "./components/banner/Banner";
-import MovieList from "./components/movie/MovieList";
 import "swiper/scss";
-import Header from "./components/layout/Header";
 import HomePage from "./components/pages/HomePage";
 import Main from "./components/layout/Main";
 import MoviePage from "./components/pages/MoviePage";
+import MovieDetailPage from "./components/pages/MovieDetailPage";
 
 function App() {
   return (
@@ -23,6 +22,10 @@ function App() {
             }
           ></Route>
           <Route path="/movies" element={<MoviePage></MoviePage>}></Route>
+          <Route
+            path="/movies/:movieId"
+            element={<MovieDetailPage></MovieDetailPage>}
+          ></Route>
         </Route>
       </Routes>
     </Fragment>
