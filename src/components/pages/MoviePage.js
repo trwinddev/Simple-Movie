@@ -15,11 +15,11 @@ const MoviePage = () => {
         <div className="flex-1">
           <input
             type="text"
-            className="w-full p-4 bg-slate-800 text-white outline-none"
+            className="w-full p-4 bg-slate-800  outline-none"
             placeholder="Type here to search"
           />
         </div>
-        <button className="p-4 bg-primary text-white">
+        <button className="p-4 bg-primary ">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
