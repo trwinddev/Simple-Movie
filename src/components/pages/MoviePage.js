@@ -14,7 +14,8 @@ const MoviePage = () => {
   const handleFilterChange = (e) => {
     setFilter(e.target.value);
   };
-  const { data } = useSWR(url, fetcher);
+  const { data, error } = useSWR(url, fetcher);
+  const loading = !data && !error;
   useEffect(() => {
     if (filterDebounce) {
       setUrl(
@@ -54,8 +55,12 @@ const MoviePage = () => {
           </svg>
         </button>
       </div>
+      {loading && (
+        <div className="w-10 h-10 rounded-full border-4 border-primary border-t-4 border-t-transparent animate-spin mx-auto"></div>
+      )}
       <div className="grid grid-cols-4 gap-10">
-        {movies.length > 0 &&
+        {!loading &&
+          movies.length > 0 &&
           movies.map((item) => (
             <MovieCard key={item.id} item={item}></MovieCard>
           ))}
