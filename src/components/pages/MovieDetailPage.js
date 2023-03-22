@@ -2,8 +2,8 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { Swiper, SwiperSlide } from "swiper/react";
 import useSWR from "swr";
-import { apiKey, fetcher, tmdbAPI } from "../../config/config";
-import MovieCard from "../movie/MovieCard";
+import { apiKey, fetcher, tmdbAPI } from "config/config";
+import MovieCard from "components/movie/MovieCard";
 // https://api.themoviedb.org/3/movie/{movie_id}?api_key=<<api_key>>&language=en-USz
 
 const MovieDetailPage = () => {
@@ -16,7 +16,7 @@ const MovieDetailPage = () => {
       <div className="w-full h-[600px] relative">
         <div className="absolute inset-0 bg-black bg-opacity-70"></div>
         <div
-          className="w-full h-full bg-cover bg-no-repeat"
+          className="w-full h-full bg-no-repeat bg-cover"
           style={{
             // backgroundImage: `url(https://image.tmdb.org/t/p/original/${backdrop_path})`,
             backgroundImage: `url(${tmdbAPI.imageOriginal(backdrop_path)})`,
@@ -28,16 +28,16 @@ const MovieDetailPage = () => {
           // src={`https://image.tmdb.org/t/p/original/${poster_path}`}
           src={tmdbAPI.imageOriginal(poster_path)}
           alt=""
-          className="w-full h-full object-cover rounded-xl"
+          className="object-cover w-full h-full rounded-xl"
         />
       </div>
-      <h1 className="text-center text-4xl font-bold mb-10">{title}</h1>
+      <h1 className="mb-10 text-4xl font-bold text-center">{title}</h1>
       {genres.length > 0 && (
-        <div className="flex items-center justify-center gap-x-5 mb-10">
+        <div className="flex items-center justify-center mb-10 gap-x-5">
           {genres.map((item) => (
             <span
               key={item.id}
-              className="py-2 px-4 border-primary border text-primary rounded"
+              className="px-4 py-2 border rounded border-primary text-primary"
             >
               {item.name}
             </span>
@@ -65,7 +65,7 @@ function MovieCredits() {
   if (!cast || cast.length <= 0) return null;
   return (
     <div className="py-10">
-      <h2 className="text-center text-3xl mb-10">Casts</h2>
+      <h2 className="mb-10 text-3xl text-center">Casts</h2>
       <div className="grid grid-cols-4 gap-5">
         {cast.slice(0, 4).map((item) => (
           <div className="cast-item" key={item.id}>
@@ -96,7 +96,7 @@ function MovieVideos() {
       <div className="flex flex-col gap-10">
         {results.slice(0, 2).map((item) => (
           <div key={item.id}>
-            <h3 className="mb-5 text-xl font-medium p-3 bg-secondary inline-block">
+            <h3 className="inline-block p-3 mb-5 text-xl font-medium bg-secondary">
               {item.name}
             </h3>
             <div className="w-full aspect-video">
@@ -108,7 +108,7 @@ function MovieVideos() {
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
-                className="w-full h-full object-fill"
+                className="object-fill w-full h-full"
               ></iframe>
             </div>
           </div>
@@ -129,7 +129,7 @@ function MovieSimilar() {
   if (!results || results.length <= 0) return null;
   return (
     <div className="py-10">
-      <h2 className="text-3xl font-medium mb-10">Similar movies</h2>
+      <h2 className="mb-10 text-3xl font-medium">Similar movies</h2>
       <div className="movie-list">
         <Swiper grabCursor={"true"} spaceBetween={40} slidesPerView={"auto"}>
           {results.length > 0 &&

@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import useSWR from "swr";
-import { apiKey, fetcher, tmdbAPI } from "../../config/config";
-import useDebounce from "../../hooks/useDebounce";
-import MovieCard from "../movie/MovieCard";
+import { apiKey, fetcher, tmdbAPI } from "config/config";
+import useDebounce from "hooks/useDebounce";
 import ReactPaginate from "react-paginate";
+import MovieCard from "components/movie/MovieCard";
 
 // https://api.themoviedb.org/3/search/movie?api_key=<<api_key>>
 const itemsPerPage = 20;
@@ -44,7 +44,7 @@ const MoviePage = () => {
         <div className="flex-1">
           <input
             type="text"
-            className="w-full p-4 bg-slate-800  outline-none"
+            className="w-full p-4 outline-none bg-slate-800"
             placeholder="Type here to search"
             onChange={handleFilterChange}
           />
@@ -67,7 +67,7 @@ const MoviePage = () => {
         </button>
       </div>
       {loading && (
-        <div className="w-10 h-10 rounded-full border-4 border-primary border-t-4 border-t-transparent animate-spin mx-auto"></div>
+        <div className="w-10 h-10 mx-auto border-4 border-t-4 rounded-full border-primary border-t-transparent animate-spin"></div>
       )}
       <div className="grid grid-cols-4 gap-10">
         {!loading &&

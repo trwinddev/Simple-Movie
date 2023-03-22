@@ -1,19 +1,19 @@
 import React, { Fragment } from "react";
-import MovieList from "../movie/MovieList";
+import MovieList from "components/movie/MovieList";
 
 const HomePage = () => {
   return (
     <Fragment>
-      <section className="movies-layout page-container pb-20">
-        <h2 className="capitalize  mb-10 text-3xl font-bold">Now playing</h2>
+      <section className="pb-20 movies-layout page-container">
+        <h2 className="mb-10 text-3xl font-bold capitalize">Now playing</h2>
         <MovieList></MovieList>
       </section>
-      <section className="movies-layout page-container pb-20">
-        <h2 className="capitalize  mb-10 text-3xl font-bold">Top rated</h2>
+      <section className="pb-20 movies-layout page-container">
+        <h2 className="mb-10 text-3xl font-bold capitalize">Top rated</h2>
         <MovieList type="top_rated"></MovieList>
       </section>
-      <section className="movies-layout page-container pb-20">
-        <h2 className="capitalize  mb-10 text-3xl font-bold">Trending</h2>
+      <section className="pb-20 movies-layout page-container">
+        <h2 className="mb-10 text-3xl font-bold capitalize">Trending</h2>
         <MovieList type="popular"></MovieList>
       </section>
     </Fragment>
