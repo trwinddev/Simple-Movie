@@ -2,6 +2,8 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "components/button/Button";
 import { tmdbAPI } from "config/config";
+import PropTypes from "prop-types";
+import { withErrorBoundary } from "react-error-boundary";
 
 const MovieCard = ({ item }) => {
   const { poster_path, title, release_date, vote_average, id } = item;
@@ -26,4 +28,24 @@ const MovieCard = ({ item }) => {
   );
 };
 
-export default MovieCard;
+MovieCard.propTypes = {
+  item: PropTypes.shape({
+    poster_path: PropTypes.string,
+    title: PropTypes.string,
+    release_date: PropTypes.string,
+    vote_average: PropTypes.number,
+    id: PropTypes.string,
+  }),
+};
+
+function FallbackComponent() {
+  return (
+    <p className="bg-red-50 text-red-400">
+      Somthing wwent wrong with this component
+    </p>
+  );
+}
+
+export default withErrorBoundary(MovieCard, {
+  FallbackComponent,
+});
