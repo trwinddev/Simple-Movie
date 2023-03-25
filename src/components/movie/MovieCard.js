@@ -4,6 +4,7 @@ import Button from "components/button/Button";
 import { tmdbAPI } from "config/config";
 import PropTypes from "prop-types";
 import { withErrorBoundary } from "react-error-boundary";
+import LoadingSkeleton from "components/loading/LoadingSkeleton";
 
 const MovieCard = ({ item }) => {
   const { poster_path, title, release_date, vote_average, id } = item;
@@ -45,6 +46,28 @@ function FallbackComponent() {
     </p>
   );
 }
+
+export const MovieCardSkeleton = () => {
+  return (
+    <div className="flex flex-col h-full p-3 rounded-lg movie-card bg-slate-800 ">
+      <LoadingSkeleton className="w-full h-[250px] rounded-lg mb-5"></LoadingSkeleton>
+      <div className="flex flex-col flex-1">
+        <h3 className="mb-3 text-xl font-bold">
+          <LoadingSkeleton className="w-full h-[20px]"></LoadingSkeleton>
+        </h3>
+        <div className="flex items-center justify-between mb-10 text-sm opacity-50">
+          <span>
+            <LoadingSkeleton className="w-[50px] h-[10px]"></LoadingSkeleton>
+          </span>
+          <span>
+            <LoadingSkeleton className="w-[30px] h-[10px]"></LoadingSkeleton>
+          </span>
+        </div>
+        <LoadingSkeleton className="w-full h-[40px] rounded-md"></LoadingSkeleton>
+      </div>
+    </div>
+  );
+};
 
 export default withErrorBoundary(MovieCard, {
   FallbackComponent,
