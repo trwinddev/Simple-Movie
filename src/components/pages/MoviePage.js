@@ -4,6 +4,8 @@ import { apiKey, fetcher, tmdbAPI } from "config/config";
 import useDebounce from "hooks/useDebounce";
 import ReactPaginate from "react-paginate";
 import MovieCard from "components/movie/MovieCard";
+import useSWRInfinite from "swr/infinite";
+import Button from "components/button/Button";
 
 // https://api.themoviedb.org/3/search/movie?api_key=<<api_key>>
 const itemsPerPage = 20;
@@ -17,9 +19,18 @@ const MoviePage = () => {
   const handleFilterChange = (e) => {
     setFilter(e.target.value);
   };
-  const { data, error } = useSWR(url, fetcher);
-  console.log("🚀 ~ file: MoviePage.js:23 ~ MoviePage ~ data:", data);
+  const { data, error, size, setSize } = useSWRInfinite(
+    (index) => url.replace("page=1", `page=${index + 1}`),
+    fetcher
+  );
+  const movies = data ? data.reduce((a, b) => a.concat(b.results), []) : [];
+
+  // const { data, error } = useSWR(url, fetcher);
+  // console.log("🚀 ~ file: MoviePage.js:23 ~ MoviePage ~ data:", data);
   const loading = !data && !error;
+  const isEmpty = data?.[0]?.results.length === 0;
+  const isReachingEnd =
+    isEmpty || (data && data[data.length - 1]?.results.length < itemsPerPage);
   useEffect(() => {
     if (filterDebounce) {
       setUrl(tmdbAPI.getMovieSearch(filterDebounce, nextPage));
@@ -28,7 +39,7 @@ const MoviePage = () => {
     }
   }, [filterDebounce, nextPage]);
   // if (!data) return null;
-  const movies = data?.results || [];
+  // const movies = data?.results || [];
   useEffect(() => {
     if (!data || !data.total_results) return;
     setPageCount(Math.ceil(data.total_results / itemsPerPage));
@@ -76,8 +87,15 @@ const MoviePage = () => {
             <MovieCard key={item.id} item={item}></MovieCard>
           ))}
       </div>
-      <div className="mt-10">
-        <ReactPaginate
+      <div className="mt-10 text-center">
+        <Button
+          onCLick={() => (isReachingEnd ? {} : setSize(size + 1))}
+          disabled={isReachingEnd}
+          className={`${isReachingEnd ? "bg-slate-300" : ""}`}
+        >
+          Load More
+        </Button>
+        {/* <ReactPaginate
           breakLabel="..."
           nextLabel="next >"
           onPageChange={handlePageClick}
@@ -86,7 +104,7 @@ const MoviePage = () => {
           previousLabel="< previous"
           renderOnZeroPageCount={null}
           className="pagination"
-        />
+        /> */}
       </div>
     </div>
   );
